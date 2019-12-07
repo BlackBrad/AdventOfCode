@@ -3,7 +3,11 @@ import Foundation
 func decodeIns(program: inout [Int]){ 
 	var program_counter = 0
 	var instruction = program[program_counter]
-	
+    
+    //Restore Gravity Assist State
+    program[1] = 12
+    program[2] = 2
+
 	while instruction != 99{
 		// Get the addresses to get the variables from
 		let src1 = program[program_counter + 1]
@@ -35,7 +39,7 @@ func decodeIns(program: inout [Int]){
 
 func main(){
 	do {
-		let filePath = "./AOC_Day2_IntCode.txt"
+		let filePath = "./input.txt"
 		let fileContents = try String(contentsOfFile: filePath, encoding: .utf8)
         var intCodeArray = fileContents.components(separatedBy: ",")
                                        .map({Int($0) ?? 0})
