@@ -10,10 +10,9 @@ func main(){
 	var total_fuel = 0
 	do {
 		let fileContents = try String(contentsOfFile: file_path, encoding: .utf8)
-		let massArray = fileContents.trimmingCharacters(in: .whitespacesAndNewlines)
-								.components(separatedBy: "\n")
-								.map({Int($0) ?? 0})
-		print("Contents \(massArray)")
+		let massArray = fileContents.trimmingCharacters(in: .whitespacesAndNewlines) // Trim whitespace and newlines
+								.components(separatedBy: "\n") // Split the string my new lines
+								.map({Int($0) ?? 0}) // Convert the array to an array of ints
 
 		for mass in massArray{
 			total_fuel += requiredLaunchFuel(mass: mass)	
@@ -27,5 +26,3 @@ func main(){
 }
 
 main()
-
-print("RequiredFuelIs: \(requiredLaunchFuel(mass: 100756))")
