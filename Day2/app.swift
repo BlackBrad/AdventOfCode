@@ -63,21 +63,21 @@ func testIntCode(initial: inout [Int], expectedResult: [Int]){
 }
 
 if CommandLine.arguments.contains("--test"){
-	var dayTwoExampleOne = [1, 0, 0, 0, 99]
-	let expectedDay2TwoExampleOne = [2, 0, 0, 0, 99]
-	testIntCode(initial: &dayTwoExampleOne, expectedResult: expectedDay2TwoExampleOne)
+    var dayTwoExampleOne = [1, 0, 0, 0, 99]
+    let expectedDay2TwoExampleOne = [2, 0, 0, 0, 99]
+    testIntCode(initial: &dayTwoExampleOne, expectedResult: expectedDay2TwoExampleOne)
 	
     var dayTwoExampleTwo = [2, 3, 0, 3, 99]
-	let expectedDay2TwoExampleTwo = [2, 3, 0, 6, 99]
-	testIntCode(initial: &dayTwoExampleTwo, expectedResult: expectedDay2TwoExampleTwo)	
+    let expectedDay2TwoExampleTwo = [2, 3, 0, 6, 99]
+    testIntCode(initial: &dayTwoExampleTwo, expectedResult: expectedDay2TwoExampleTwo)	
     
     var dayTwoExampleThree = [2, 4, 4, 5, 99, 0]
-	let expectedDay2TwoExampleThree = [2, 4, 4, 5, 99, 9801]
-	testIntCode(initial: &dayTwoExampleThree, expectedResult: expectedDay2TwoExampleThree)
+    let expectedDay2TwoExampleThree = [2, 4, 4, 5, 99, 9801]
+    testIntCode(initial: &dayTwoExampleThree, expectedResult: expectedDay2TwoExampleThree)
     
     var dayTwoExampleFour = [1, 1, 1, 4, 99, 5, 6, 0, 99]
-	let expectedDay2TwoExampleFour = [30, 1, 1, 4, 2, 5, 6, 0, 99]
-	testIntCode(initial: &dayTwoExampleFour, expectedResult: expectedDay2TwoExampleFour)
+    let expectedDay2TwoExampleFour = [30, 1, 1, 4, 2, 5, 6, 0, 99]
+    testIntCode(initial: &dayTwoExampleFour, expectedResult: expectedDay2TwoExampleFour)
 } else {
 	main()
 }
