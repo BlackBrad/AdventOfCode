@@ -1,8 +1,17 @@
 import Foundation
 
 // Gives the fuel requred for launch for a given module 
+// As well as caluclates fuel for the extra mass that 
+// the fuel for each module needs.
 func requiredLaunchFuel(mass: Int) -> Int {
-	return Int(floor(Double(mass) / 3) - 2)
+	// division returns a Double but the function returns an int so 
+	// convert the ouput of floor into an integer
+	let fuel = Int(floor(Double(mass) / 3) - 2)
+	if fuel < 1 { 
+		return 0
+	} else {
+		return fuel + requiredLaunchFuel(mass: fuel)
+	}
 }
 
 func main(){
@@ -18,7 +27,7 @@ func main(){
 			total_fuel += requiredLaunchFuel(mass: mass)	
 		}
 		
-		print("Total Required Fuel if: \(total_fuel)")
+		print("Total Required Fuel is: \(total_fuel)")
 
 	} catch let error as NSError{
 		print("Exception: \(error)")
