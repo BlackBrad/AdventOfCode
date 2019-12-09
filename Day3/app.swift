@@ -32,6 +32,7 @@ func trace_wires(path: [String]) -> [(x: Int, y: Int)]{
             tracedData.append((x: currentCoordinates.x, y: currentCoordinates.y))
         }
     }
+    print(tracedData)
     return tracedData 
 }
 
@@ -42,9 +43,11 @@ func findClosestIntersection(pathArray: [(x: Int, y: Int)]) {
     //Bubble search for intersecting elements 
     for path in pathArray{
         for pathIndex in index..<pathArray.count{
-            print("A \(path)  B: \(pathArray[pathIndex])")
-            if path == pathArray[pathIndex] {
-                distances.append(path.x + path.y)
+//            print("A \(path)  B: \(pathArray[pathIndex])")
+            if path.x == pathArray[pathIndex].x && path.y == pathArray[pathIndex].y{
+                let x = path.x < 0 ? path.x * -1 : path.x
+                let y = path.y < 0 ? path.y * -1 : path.y
+                distances.append(x + y)
             }
         }
         if index == pathArray.count{
