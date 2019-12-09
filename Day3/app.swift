@@ -2,78 +2,88 @@
 
 import Foundation
 
-func trace_wires(path: [String]) -> [(x: Int, y: Int)]{
-    var tracedData:[(x: Int, y: Int)] = []
-    var currentCoordinates = (x: 0, y: 0)
+func trace_wires(wireArray: [[String]]) -> [[(x: Int, y: Int)]]{
+    var dataToReturn:[[(x: Int, y: Int)]] = []
+    
+    for wire in wireArray{
+        var currentCoordinates = (x: 0, y: 0)
+        var tracedData:[(x: Int, y: Int)] = []
 
-    for direction in path{
-        let index = direction.index(direction.startIndex, offsetBy: 1)
-        let change_in_direction = Int(direction[index...])
         
-        for _ in 1...change_in_direction!{
+        for direction in wire{
+            let index = direction.index(direction.startIndex, offsetBy: 1)
+            let change_in_direction = Int(direction[index...])
+            for _ in 1...change_in_direction!{
 
-            switch(direction.first){
-            case "L":
-                currentCoordinates.x -= 1 
-                break
-            case "R":
-                currentCoordinates.x += 1
-                break
-            case "U": 
-                currentCoordinates.y += 1
-                break
-            case "D":
-                currentCoordinates.y -= 1
-                break
-            default: 
-                break
+                switch(direction.first){
+                case "L":
+                    currentCoordinates.x -= 1 
+                    break
+                case "R":
+                    currentCoordinates.x += 1
+                    break
+                case "U": 
+                    currentCoordinates.y += 1
+                    break
+                case "D":
+                    currentCoordinates.y -= 1
+                    break
+                default: 
+                    break
+                }
+
+                tracedData.append((x: currentCoordinates.x, y: currentCoordinates.y))
             }
-
-            tracedData.append((x: currentCoordinates.x, y: currentCoordinates.y))
         }
+        dataToReturn.append(tracedData)
     }
-    print(tracedData)
-    return tracedData 
+    return dataToReturn 
 }
 
-func findClosestIntersection(pathArray: [(x: Int, y: Int)]) {
+func findClosestIntersection(pathArray: [[(x: Int, y: Int)]]) {
     var distances:[Int] = []
     var index = 1
-    
-    //Bubble search for intersecting elements 
-    for path in pathArray{
-        for pathIndex in index..<pathArray.count{
-//            print("A \(path)  B: \(pathArray[pathIndex])")
-            if path.x == pathArray[pathIndex].x && path.y == pathArray[pathIndex].y{
-                let x = path.x < 0 ? path.x * -1 : path.x
-                let y = path.y < 0 ? path.y * -1 : path.y
-                distances.append(x + y)
+
+    for wire in pathArray{
+        for path in wire{
+            for otherWire in index..<pathArray.count{
+                for otherPath in pathArray[otherWire]{
+                    if path == otherPath{
+
+                        distances.append(abs(path.x) + abs(path.y))
+                    }
+                }
             }
         }
-        if index == pathArray.count{
-            break
-        }
         index += 1
-    }
-    print(distances)
+    } 
+    distances.sort()
+    print("The shortest distance is: \(distances[0])")
 }
 
-func get_input() -> [String]{
+func get_input() -> [[String]]{
     let file_path = "./AOC_Day3_Circuit.txt"
     do {
+        var wireArray: [[String]] = []
         let fileContents = try String(contentsOfFile: file_path, encoding: .utf8)
-        let wireArray = fileContents.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    .components(separatedBy: ",")
+        let tempArray = fileContents.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    .components(separatedBy: "\n")
+       
+        
+        for wire in tempArray{
+            wireArray.append(wire.components(separatedBy: ","))
+        }
+                                    
         return wireArray
     } catch let error as NSError{
         print("Exception: \(error)")
     }
-    return [""]
+    return [[""]]
 }
 
 func partOne(){
     let wireArray = get_input()
-    let pathArray = trace_wires(path: wireArray)
+    let pathArray = trace_wires(wireArray: wireArray)
     findClosestIntersection(pathArray: pathArray)
 }
 
