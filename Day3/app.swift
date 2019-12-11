@@ -84,10 +84,10 @@ func get_input() -> [[String]]{
     return [[""]]
 }
 
-func partOne(){
+func main(){
     let wireArray = get_input()
     let pathArray = trace_wires(wireArray: wireArray)
     findClosestIntersection(pathArray: pathArray)
 }
 
-partOne()
+main()
