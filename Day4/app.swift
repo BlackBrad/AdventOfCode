@@ -1,19 +1,31 @@
-func generatePasswordRange(range: String){
-    let rangeSymbolIndex = range.firstIndex(of: "-")
-    let lowerBound = range[..<rangeSymbolIndex]
-    let upperBound = range[rangeSymbolIndex<..]
-    print(upperBound)
+#!/usr/bin/swift
+
+import Foundation
+
+func generatePasswordRange(range: [Int]){
+    // Split the two elements into dedicated variables for extra readability
+    let lowerBound = range[0]
+    let upperBound = range[1]
+    var totalRange:[Int] = []
+
+    for i in lowerBound...upperBound{
+        totalRange.append(i)
+    }
+
+    print(totalRange)
 }
 
-func getInput() -> String{
+func getInput() -> [Int]{
     let file_path = "./AOC_Day4_PasswordRange.txt"
     do {
         let fileContents = try String(contentsOfFile: file_path, encoding: .utf8)
         return fileContents.trimmingCharacters(in: .whitespacesAndNewlines)
+                           .components(separatedBy: "-")
+                           .map({Int($0) ?? 0})
     } catch let error as NSError{
         print("Exception: \(error)")
     }
-    return ""
+    return [0]
 }
 
 let temp = getInput()
