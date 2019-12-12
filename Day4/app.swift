@@ -6,10 +6,10 @@ func generatePasswordRange(range: [Int]){
     // Split the two elements into dedicated variables for extra readability
     let lowerBound = range[0]
     let upperBound = range[1]
-    var totalRange:[Int] = []
+    var totalRange:[String] = []
 
     for i in lowerBound...upperBound{
-        totalRange.append(i)
+        totalRange.append(String(i))
     }
 
     print(totalRange)
