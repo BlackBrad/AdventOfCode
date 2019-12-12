@@ -11,8 +11,32 @@ func generatePasswordRange(range: [Int]){
     for i in lowerBound...upperBound{
         totalRange.append(String(i))
     }
+}
 
-    print(totalRange)
+func recursiveCheckRules(range: [Character], currentIndex: Int = 0) -> Bool{
+    if range.count != 6 {
+        return false
+    } else if Int(currentIndex) == range.count - 1 {
+        return true
+    } else {
+        let a = Int(range[currentIndex])
+        let b = Int(range[currentIndex + 1])
+
+        if b! > a! || b! == a! {
+            return recursiveCheckRules(range: range, currentIndex: b!)
+        }
+    }
+    return false
+}
+
+func checkRules(range: [String]){
+    var valuesThatMeetRules: [Int] = []
+    for value in range{
+        let valueAsArray = Array(value).map({Int($0) ?? 0})
+        if recursiveCheckRules(range: valueAsArray){
+            valuesThatMeetRules.append(Int(value)!)
+        }
+    }
 }
 
 func getInput() -> [Int]{
@@ -31,3 +55,5 @@ func getInput() -> [Int]{
 let temp = getInput()
 print("Temp is \(temp)")
 generatePasswordRange(range: temp)
+
+print(recursiveCheckRules(range: [1,1,1,1,1,1]))
