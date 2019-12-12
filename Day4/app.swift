@@ -13,7 +13,7 @@ func generatePasswordRange(range: [Int]){
     }
 }
 
-func recursiveCheckRules(range: [Character], currentIndex: Int = 0) -> Bool{
+func recursiveCheckRules(range: [Int], currentIndex: Int = 0) -> Bool{
     if range.count != 6 {
         return false
     } else if Int(currentIndex) == range.count - 1 {
@@ -22,8 +22,8 @@ func recursiveCheckRules(range: [Character], currentIndex: Int = 0) -> Bool{
         let a = Int(range[currentIndex])
         let b = Int(range[currentIndex + 1])
 
-        if b! > a! || b! == a! {
-            return recursiveCheckRules(range: range, currentIndex: b!)
+        if b > a || b == a {
+            return recursiveCheckRules(range: range, currentIndex: b)
         }
     }
     return false
